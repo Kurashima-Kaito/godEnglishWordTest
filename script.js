@@ -98,11 +98,11 @@ function checkAnswer() {
   submitBtn.classList.add('hidden');
 
   if (answer === correctAnswer) {
-    messageText.textContent = "🎉 正解！ 次の問題にいきます...";
+    messageText.textContent = `🎉 正解！ ${wordsJP[currentIdx]}でした`;
     messageText.style.color = "green";
-    setTimeout(pickRandomQuestion, 200);
+    setTimeout(pickRandomQuestion, 1000);
   } else {
-    messageText.textContent = `❌ 残念！ 正解は「 ${words[currentIdx]} 」でした。`;
+    messageText.textContent = `❌ 残念！ 正解は "${words[currentIdx]}"「${wordsJP[currentIdx]}」でした。`;
     messageText.style.color = "red";
     nextBtn.classList.remove('hidden');
   }
