@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>単語当てゲーム</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    #game-container {
+      width: 400px;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    #image-area {
+      width: 300px;
+      height: 300px;
+      margin: 0 auto 20px;
+      background-color: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    #game-image {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+    #message {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      min-height: 27px;
+    }
+    .input-area {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+    input[type="text"] {
+      padding: 8px;
+      font-size: 16px;
+      width: 150px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      padding: 8px 16px;
+      font-size: 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+
+<div id="game-container">
+  <div id="image-area">
+    <img id="game-image" src="" alt="ゲーム画像">
+  </div>
+  <div id="message">読み込み中...</div>
+  
+  <div class="input-area">
+    <input type="text" id="user-input" placeholder="単語を入力">
+    <button id="submit-btn">回答</button>
+    <button id="next-btn" class="hidden">次へ進む</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
