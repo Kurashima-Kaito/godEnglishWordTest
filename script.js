@@ -1,11 +1,15 @@
-// ★ 画像（img1〜10）に対応する正解の単語
+// 画像に対応する正解の単語
 const words = [
-  "apple", "banana", "cat", "dog", "elephant",
-  "fish", "grape", "house", "ice", "juice"
+  "kitten", "foal", "bull", "dairy cattle", "calf",
+  "fawn", "moose", "lamb", "kid", "swine",
+  "fawn", "moose", "lamb", "kid", "swine"
 ];
 
 const imgCount = 10;
 let currentIdx = 0;
+
+// 試したい拡張子のリスト（上から順番に探します）
+const extensions = ['png', 'jpg', 'jpeg', 'webp', 'avif'];
 
 // HTML要素の取得
 const gameImage = document.getElementById('game-image');
@@ -18,9 +22,6 @@ const nextBtn = document.getElementById('next-btn');
 function pickRandomQuestion() {
   currentIdx = Math.floor(Math.random() * imgCount);
   
-  // 画像のパスを設定 (Images/img1.png 形式)
-  gameImage.src = `Images/img${currentIdx + 1}.png`;
-  
   messageText.textContent = "この画像を表す単語は何？";
   messageText.style.color = "#333";
   
@@ -30,6 +31,40 @@ function pickRandomQuestion() {
   submitBtn.classList.remove('hidden');
   nextBtn.classList.add('hidden');
   userInput.focus();
+
+  // 拡張子が分からなくても自動で探して画像をセットする関数を呼び出す
+  // 例: img1 の画像を extensions のリスト順に探す
+  tryLoadImage(currentIdx + 1, 0);
+}
+
+// 拡張子を順番に試して画像を読み込む関数（再帰処理）
+function tryLoadImage(imgNumber, extIndex) {
+  // すべての拡張子を試しても見つからなかった場合
+  if (extIndex >= extensions.length) {
+    console.error(`画像 img${imgNumber} が見つかりませんでした。`);
+    gameImage.src = ""; // 画像を空にする
+    messageText.textContent = `⚠️ img${imgNumber} の画像ファイルが見つかりません`;
+    return;
+  }
+
+  const ext = extensions[extIndex];
+  const testSrc = `Images/img${imgNumber}.${ext}`;
+
+  // ダミーの画像オブジェクトを作って、実際に読み込めるかテストする
+  const imgTester = new Image();
+  
+  // 読み込めたら、本物の画面（gameImage）にそのパスをセット
+  imgTester.onload = function() {
+    gameImage.src = testSrc;
+  };
+
+  // エラーになったら（拡張子が違ったら）、次の拡張子で再挑戦
+  imgTester.onerror = function() {
+    tryLoadImage(imgNumber, extIndex + 1);
+  };
+
+  // テスト開始
+  imgTester.src = testSrc;
 }
 
 // 答え合わせ
@@ -37,21 +72,18 @@ function checkAnswer() {
   const answer = userInput.value.trim().toLowerCase();
   const correctAnswer = words[currentIdx].toLowerCase();
   
-  if (answer === "") return; // 空欄なら何もしない
+  if (answer === "") return;
 
-  // 入力欄と回答ボタンを隠す
   userInput.classList.add('hidden');
   submitBtn.classList.add('hidden');
 
   if (answer === correctAnswer) {
     messageText.textContent = "🎉 正解！ 次の問題にいきます...";
     messageText.style.color = "green";
-    // 1.5秒後に自動で次の問題へ
     setTimeout(pickRandomQuestion, 1500);
   } else {
     messageText.textContent = `❌ 残念！ 正解は「 ${words[currentIdx]} 」でした。`;
     messageText.style.color = "red";
-    // 「次へ」ボタンを表示
     nextBtn.classList.remove('hidden');
   }
 }
@@ -60,7 +92,6 @@ function checkAnswer() {
 submitBtn.addEventListener('click', checkAnswer);
 nextBtn.addEventListener('click', pickRandomQuestion);
 
-// エンターキーでも回答できるようにする
 userInput.addEventListener('keypress', (e) => {
   if (e.key === 'Enter') checkAnswer();
 });
