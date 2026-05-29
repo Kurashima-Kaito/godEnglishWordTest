@@ -2,10 +2,30 @@
 const words = [
   "kitten", "foal", "bull", "dairy cattle", "calf",
   "fawn", "moose", "lamb", "kid", "swine",
-  "fawn", "moose", "lamb", "kid", "swine"
+  "boar", "sow", "squirrel", "guinea pig", "porcupine",
+  "vixen", "weasel", "badger", "otter", "wild boar",
+  "gibbon", "baboon", "hamadryas baboon", "panther", "dromedary",
+  "bactrian camel", "mule", "sea otter", "raccoon", "tapir",
+  "sea lion", "walrus", "steller sea lion", "seal", "fur seal",
+  "serpent", "toad", "salamander", "tomcat", "tabby",
+  "billy", "nanny", "gander", "gosling", "ram",
+  "ewe"
+];
+// 日本語訳
+const wordsJP = [
+  "子猫", "子馬", "雄牛", "乳用牛", "仔牛",
+  "子鹿", "アメリカヘラジカ", "子羊", "子ヤギ", "豚",
+  "雄豚", "雌豚", "リス", "モルモット", "ハリネズミ",
+  "雌狐", "イタチ", "アナグマ", "カワウソ", "イノシシ",
+  "テナガザル", "ヒヒ", "マントヒヒ", "ヒョウ", "ひとこぶラクダ",
+  "ふたこぶラクダ", "ラバ", "ラッコ", "アライグマ", "バク",
+  "アシカ", "セイウチ", "トド", "アザラシ", "オットセイ",
+  "ヘビ", "ヒキガエル", "サンショウウオ", "オス猫", "メス猫",
+  "オスヤギ", "メスヤギ", "オスガチョウ", "子ガチョウ", "オス羊",
+  "メス羊"
 ];
 
-const imgCount = 10;
+const imgCount = 46;
 let currentIdx = 0;
 
 // 試したい拡張子のリスト（上から順番に探します）
@@ -80,7 +100,7 @@ function checkAnswer() {
   if (answer === correctAnswer) {
     messageText.textContent = "🎉 正解！ 次の問題にいきます...";
     messageText.style.color = "green";
-    setTimeout(pickRandomQuestion, 1500);
+    setTimeout(pickRandomQuestion, 200);
   } else {
     messageText.textContent = `❌ 残念！ 正解は「 ${words[currentIdx]} 」でした。`;
     messageText.style.color = "red";
