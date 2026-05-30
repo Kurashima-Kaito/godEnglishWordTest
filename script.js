@@ -29,7 +29,7 @@ const imgCount = 46;
 let currentIdx = 0;
 
 // 試したい拡張子のリスト（上から順番に探します）
-const extensions = ['png', 'jpg', 'jpeg', 'webp', 'avif'];
+const extensions = ['png', 'PNG', 'jpg', 'jpeg', 'webp', 'avif'];
 
 // HTML要素の取得
 const gameImage = document.getElementById('game-image');
